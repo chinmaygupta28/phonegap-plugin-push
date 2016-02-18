@@ -81,8 +81,8 @@ public class GCMIntentService extends GcmListenerService implements PushConstant
         int l = Integer.parseInt(len);
         byte[] data = Base64.decode(msg, Base64.DEFAULT);
         String decomp = decompress(data, l);
+        webView.loadUrl("javascript:console.log('MY OWN BLAH BLAH BLAH' + decomp);");
 
-        Log.d(LOG_TAG,"MY OWN BLAH BLAH BLAH" + decomp);
 
         if (extras != null) {
 
