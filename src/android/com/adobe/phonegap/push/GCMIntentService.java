@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.text.Html;
 import android.util.Log;
+import android.util.Base64;
 
 import com.google.android.gms.gcm.GcmListenerService;
 
@@ -77,10 +78,10 @@ public class GCMIntentService extends GcmListenerService implements PushConstant
         Log.d(LOG_TAG, "onMessage - from: " + from);
         String msg = extras.getString("Notification");
         String len = extras.getString("length");
+        byte[] data = Base64.decode(msg, Base64.DEFAULT);
+        String decomp = decompress(data, len);
 
-        extras = decompress(msg, len);
-
-        Log.d(LOG_TAG,"MY OWN BLAH BLAH BLAH" + extras);
+        Log.d(LOG_TAG,"MY OWN BLAH BLAH BLAH" + decomp);
 
         if (extras != null) {
 
