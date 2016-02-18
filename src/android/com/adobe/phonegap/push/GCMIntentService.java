@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
-import java.util.zip.Inflator;
+import java.util.zip.Inflater;
 
 @SuppressLint("NewApi")
 public class GCMIntentService extends GcmListenerService implements PushConstants {
