@@ -76,7 +76,7 @@ public class GCMIntentService extends GcmListenerService implements PushConstant
     public void onMessageReceived(String from, Bundle extras) {
         Log.d(LOG_TAG, "onMessage - from: " + from);
         String msg = extras.getString("Notification");
-        int len = extras.getString("length");
+        String len = extras.getString("length");
 
         extras = decompress(msg, len);
 
