@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.zip.Inflator;
 
 @SuppressLint("NewApi")
 public class GCMIntentService extends GcmListenerService implements PushConstants {
@@ -53,10 +54,33 @@ public class GCMIntentService extends GcmListenerService implements PushConstant
             messageList.add(message);
         }
     }
+    
+    private static String decompress(byte[] compressed, int len) {
+        String outputStr = null;
+        try {
+            Inflater decompresor = new Inflater();
+            decompresor.setInput(compressed, 0, compressed.length);
+            byte[] result = new byte[len];
+            int resultLength = decompresor.inflate(result);
+            decompresor.end();
+
+            outputStr = new String(result, 0, resultLength, "UTF-8");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return outputStr;
+    }
 
     @Override
     public void onMessageReceived(String from, Bundle extras) {
         Log.d(LOG_TAG, "onMessage - from: " + from);
+        String msg = extras.getString("Notification");
+        int len = extras.getString("length");
+
+        extras = decompress(msg, len);
+
+        Log.d(LOG_TAG,"MY OWN BLAH BLAH BLAH" + extras);
 
         if (extras != null) {
 
